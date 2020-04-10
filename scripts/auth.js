@@ -46,6 +46,3 @@ logout.addEventListener('click', e => {
         console.log("logged out");
     });
 })
-
-
-
