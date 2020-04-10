@@ -1,3 +1,15 @@
+db.collection('guides').get().then( snapshot => {
+    setUpGuides(snapshot.docs);
+});
+
+// listen for auth status changes
+auth.onAuthStateChanged(user => {
+    if(user) {
+        console.log('user is logged in:', user);
+    }
+
+    console.log('user is logged out');
+});
 
 // Signup
 const signupForm = document.querySelector('#signup-form');
@@ -29,7 +41,6 @@ loginForm.addEventListener('submit', e => {
     
     // sign in user
     auth.signInWithEmailAndPassword(email, password).then( credentials => {
-        console.log(credentials.user);
         const modal = document.querySelector('#modal-login');
         M.Modal.getInstance(modal).close();
         loginForm.reset();
@@ -43,9 +54,7 @@ logout.addEventListener('click', e => {
     e.preventDefault();
 
     // sign out user
-    auth.signOut().then( () => {
-        console.log("logged out");
-    });
+    auth.signOut();
 });
 
 
